@@ -1,0 +1,91 @@
+:root {
+  --primary-light: #8abdff;
+  --primary: #6d5dfc;
+  --primary-dark: #5b0eeb;
+  --white: #ffffff;
+  --greyLight-1: #e4ebf5;
+  --greyLight-2: #c8d0e7;
+  --greyDark: #9baacf;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--greyLight-1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: center;
+}
+
+.components {
+  background: white;
+  border-radius: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0.8rem 1.4rem var(--greyLight-2), 0 -0.2rem 1.8rem var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.det {
+  display: none;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.lottie {
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem 0;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  transition: background 0.3s;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.btn__primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn__secondary {
+  background: var(--greyLight-2);
+  color: var(--primary-dark);
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3rem;
+  }
+}
