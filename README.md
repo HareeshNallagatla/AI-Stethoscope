@@ -1,55 +1,59 @@
 
 # AI Stethoscope 🩺
 
-An AI-powered stethoscope that records heart sounds, performs real-time inference using a trained machine learning model (YAMNet), and classifies heart conditions like Aortic Stenosis (AS), Mitral Regurgitation (MR), Mitral Stenosis (MS), Mitral Valve Prolapse (MVP), and Normal heartbeats (N). This system leverages the VIAM robotics platform for connectivity and MQTT for real-time communication.
+An AI-powered stethoscope that records heart sounds, streams them live, performs real-time inference using a trained machine learning model (YAMNet), and displays predictions on a web interface. The system uses VIAM's cloud platform for device communication and MQTT for real-time data exchange between backend and frontend.
 
-## Features
+---
 
-- 🔊 Real-time audio recording using microphone input.
-- 🧠 On-device audio classification using a TensorFlow Lite model (YAMNet).
-- ☁️ Remote inference and messaging via VIAM cloud services.
-- 📡 MQTT-based Pub/Sub messaging for analysis results and audio streams.
-- 💬 Automatic publishing of diagnostic labels to `VIAM-ANALYSE` topic.
-- 🔁 Continuous loop for monitoring and diagnosis every 2 seconds.
+## 🔧 Features
 
-## Technologies Used
+- 🎙️ Real-time heart sound recording via microphone.
+- 🧠 On-device inference using a VIAM-integrated TensorFlow model (YAMNet).
+- 📡 MQTT-based real-time messaging between Python backend and frontend.
+- 💬 Display of predicted heart condition: AS, MR, MS, MVP, or Normal.
+- 📈 Live waveform audio streaming in browser (frontend).
+- 🔘 Button-based UI to control "Analyse" and "Stream" modes.
 
-- Python 3.8+
-- VIAM SDK (robot client, MLModelClient, Pubsub)
-- `sounddevice` for audio recording
-- `scipy.signal.resample` for downsampling audio to 16kHz
-- `base64` for encoding audio
-- AsyncIO for asynchronous operations
+---
 
-## File Structure
+## 🗂 Project Structure
 
-- `main.py`: Main script to record audio, perform inference, publish results.
-- `AI_Stethoscope.ipynb`: Jupyter notebook (not shown here) likely used for model development and evaluation.
+### Backend
+- **`main.py`**: Records and processes audio, performs inference, and publishes results/audio to MQTT topics using VIAM.
+- **VIAM SDK** and **Pubsub** used for robot client and message broker integration.
 
-## Setup Instructions
+### Frontend
+- **`index.html`**: UI layout using responsive cards, buttons, and lottie animations.
+- **`style.css`**: Clean and responsive design using CSS variables and media queries.
+- **`script.js`**: Connects to MQTT broker, receives predictions/audio, updates UI dynamically.
 
-1. **Clone the Repository**
+---
+
+## ⚙️ Setup Instructions
+
+### 🔹 Backend
+
+1. **Install Dependencies**
    ```bash
-   git clone https://github.com/your-username/ai-stethoscope.git
-   cd ai-stethoscope
+   pip install sounddevice numpy scipy viam-sdk pubsub-python
    ```
 
-2. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-   *(Ensure `viam-sdk`, `sounddevice`, `scipy`, `numpy`, etc. are included in `requirements.txt`)*
-
-3. **Run the Application**
+2. **Run the Inference Server**
    ```bash
    python main.py
    ```
 
-> Note: Make sure your VIAM API keys are valid and that the robot and MQTT services are correctly configured on your VIAM account.
+### 🔹 Frontend
 
-## Labels
+1. Use **Live Server** in VSCode or open `index.html` directly in your browser.
 
-The following classes are predicted by the AI model:
+2. Ensure MQTT broker is accessible (e.g., `test.mosquitto.org:8080`), and topics match those in `main.py`.
+
+---
+
+## 🧠 Prediction Labels
+
+The model classifies input into:
 
 - `AS` – Aortic Stenosis  
 - `MR` – Mitral Regurgitation  
@@ -57,17 +61,33 @@ The following classes are predicted by the AI model:
 - `MVP` – Mitral Valve Prolapse  
 - `N` – Normal  
 
-## Future Improvements
+---
 
-- Add GUI interface for diagnosis display.
-- Support for Bluetooth connection to stethoscope hardware.
-- Extended model training for additional heart conditions.
-- Integration with mobile app for remote monitoring.
+## 📡 MQTT Topics Used
 
-## License
+- `VIAM-ANALYSE` – Publishes prediction result.
+- `VIAM-AUDIO-STREAM` – Publishes base64-encoded audio data.
+- `VIAM-AI-STETH/COMMAND` – Frontend to backend control commands.
+- `VIAM-AUDIO-TEST` – Frontend receives predictions from backend.
+
+---
+
+## 🚀 Future Work
+
+- Add waveform visualizer in frontend.
+- Enable secure MQTT broker authentication.
+- Model retraining on real stethoscope recordings.
+- Integrate with mobile app for telemedicine.
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License.
 
-## Contributors
+---
 
-- **Hareesh Nallagatla** – Developer & Researcher
+## 🙋‍♂️ Author
+
+- **Hareesh Nallagatla** – Full Stack Developer & ML Engineer
+
